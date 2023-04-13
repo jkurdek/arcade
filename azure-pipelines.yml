@@ -51,66 +51,187 @@ stages:
         clean: all
       jobs:
       - ${{ if eq(variables._RunAsPublic, True) }}:
-        - job: es_ubuntu_2004_open
+        - job: netcore_public
           pool:
-            name: $(DncEngPublicBuildPool)
-            demands: ImageOverride -equals 1es-ubuntu-2004-open
-          strategy:
-            matrix:
-              Build_Debug:
-                _BuildConfig: Debug
+            name: netcore-public
+            demands: ImageOverride -equals build.ubuntu.2204.amd64.open
           preSteps:
           - checkout: self
             clean: true
           steps:
-          - script: df -h
-            displayName: disk space before build
           - script: eng/common/cibuild.sh
-              --configuration $(_BuildConfig)
+              --configuration debug
               --prepareMachine
               /p:Test=false
             displayName: Unix Build / Publish
-          - script: df -h
-            displayName: disk space after build
-        - job: es_ubuntu_1804_open
+        - job: netcore_public_int
           pool:
-            name: $(DncEngPublicBuildPool)
-            demands: ImageOverride -equals 1es-ubuntu-1804-open
-          strategy:
-            matrix:
-              Build_Debug:
-                _BuildConfig: Debug
+            name: netcore-public-int
+            demands: ImageOverride -equals build.ubuntu.2204.amd64.open
           preSteps:
           - checkout: self
             clean: true
           steps:
-          - script: df -h
-            displayName: disk space before build
           - script: eng/common/cibuild.sh
-              --configuration $(_BuildConfig)
+              --configuration debug
               --prepareMachine
               /p:Test=false
             displayName: Unix Build / Publish
-          - script: df -h
-            displayName: disk space after build
-        - job: build_ubuntu_2004_amd64_open
+        - job: netcore_public_xl
           pool:
-            name: $(DncEngPublicBuildPool)
-            demands: ImageOverride -equals build.ubuntu.2004.amd64.open
-          strategy:
-            matrix:
-              Build_Debug:
-                _BuildConfig: Debug
+            name: netcore-public-xl
+            demands: ImageOverride -equals build.ubuntu.2204.amd64.open
           preSteps:
           - checkout: self
             clean: true
           steps:
-          - script: df -h
-            displayName: disk space before build
           - script: eng/common/cibuild.sh
-              --configuration $(_BuildConfig)
+              --configuration debug
               --prepareMachine
               /p:Test=false
             displayName: Unix Build / Publish
-          - script: df -h
-            displayName: disk space after build
+        - job: netcore_public_xl_int
+          pool:
+            name: netcore-public-xl-int
+            demands: ImageOverride -equals build.ubuntu.2204.amd64.open
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+        - job: netcore_svc_public
+          pool:
+            name: netcore-svc-public
+            demands: ImageOverride -equals build.ubuntu.2204.amd64.open
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+        - job: netcore_svc_public_int
+          pool:
+            name: netcore-svc-public-int
+            demands: ImageOverride -equals build.ubuntu.2204.amd64.open
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+      - ${{ if eq(variables._RunAsInternal, True) }}:
+        - job: netcore1espool_internal
+          pool:
+            name: netcore1espool-internal
+            demands: ImageOverride -equals build.ubuntu.2204.amd64
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+        - job: netcore1espool_internal_int
+          pool:
+            name: netcore1espool-internal-int
+            demands: ImageOverride -equals build.ubuntu.2204.amd64
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+        - job: netcore1espool_internal_nomsi
+          pool:
+            name: netcore1espool-internal-nomsi
+            demands: ImageOverride -equals build.ubuntu.2204.amd64
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+        - job: netcore1espool_internal_nomsi_int
+          pool:
+            name: netcore1espool-internal-nomsi-int
+            demands: ImageOverride -equals build.ubuntu.2204.amd64
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+        - job: netcore1espool_internal_xl
+          pool:
+            name: netcore1espool-internal-xl
+            demands: ImageOverride -equals build.ubuntu.2204.amd64
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+        - job: netcore1espool_internal_xl_int
+          pool:
+            name: netcore1espool-internal-xl-int
+            demands: ImageOverride -equals build.ubuntu.2204.amd64
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+        - job: netcore1espool_svc_internal
+          pool:
+            name: netcore1espool-svc-internal
+            demands: ImageOverride -equals build.ubuntu.2204.amd64
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+        - job: netcore1espool_svc_internal_int
+          pool:
+            name: netcore1espool-internal-xl-int
+            demands: ImageOverride -equals build.ubuntu.2204.amd64
+          preSteps:
+          - checkout: self
+            clean: true
+          steps:
+          - script: eng/common/cibuild.sh
+              --configuration debug
+              --prepareMachine
+              /p:Test=false
+            displayName: Unix Build / Publish
+      
